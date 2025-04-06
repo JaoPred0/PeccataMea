@@ -75,7 +75,7 @@
                     // Salva usuário no localStorage
                     localStorage.setItem("usuarioLogado", JSON.stringify(userCredential.user));
                     // Redireciona para página segura
-                    window.location.href = "peccata_mea/home.html";
+                    window.location.href = "peccata_mea/index.html";
                 })
                 .catch((error) => {
                     document.getElementById("msg").innerText = "Erro: " + error.message;
