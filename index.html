@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Firebase</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        .login-box {
+            max-width: 400px;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container login-box">
+        <div class="card p-4 animate__animated animate__fadeInDown">
+            <h2 class="text-center mb-4">Peccata Mea</h2>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">User</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="emailPrefix" placeholder="Nome de usuario">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="number" class="form-control" id="password" placeholder="Senha">
+            </div>
+
+            <button class="btn btn-primary w-100" onclick="login()">Entrar</button>
+            <div id="msg" class="mt-3 text-center text-danger"></div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCZCcydNVyFeynnVgUVwVOatrve46kgK0I",
+            authDomain: "peccata-mea.firebaseapp.com",
+            projectId: "peccata-mea",
+            storageBucket: "peccata-mea.firebasestorage.app",
+            messagingSenderId: "817588614521",
+            appId: "1:817588614521:web:3a1849d0b73ab66a22eba8",
+            measurementId: "G-XC53ZZFG06"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        window.login = function () {
+            const email = document.getElementById('emailPrefix').value + "@gmail.com";
+            const password = document.getElementById('password').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Salva usuário no localStorage
+                    localStorage.setItem("usuarioLogado", JSON.stringify(userCredential.user));
+                    // Redireciona para página segura
+                    window.location.href = "peccata_mea/index.html";
+                })
+                .catch((error) => {
+                    document.getElementById("msg").innerText = "Erro: " + error.message;
+                });
+        };
+
+    </script>
+</body>
+
+</html>
