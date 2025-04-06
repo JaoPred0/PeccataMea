@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const elementos = [
         { arquivo: 'nav', container: 'container-nav' },
         { arquivo: 'menu', container: 'container-menu' },
+        { arquivo: 'pecados', container: 'container-pecados' },
     ];
 
     elementos.forEach(item => carregarConteudo(item.arquivo, item.container));

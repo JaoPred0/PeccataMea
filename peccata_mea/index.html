@@ -12,13 +12,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="src/css/index.css" />
+    <script src="src/js/pageLoad.js" defer></script>
+    <script src="src/js/index.js" defer></script>
+    <script src="src/js/mostrarDiv.js" defer></script>
 </head>
 
 <body>
     <div id="container-nav"></div>
     <div id="container-menu"></div>
 
-    <div class="dm" id="home">
+    <!-- Home -->
+    <div class="dm oculto" id="home">
         <!-- Botão flutuante -->
         <div class="bg-dark position-fixed bottom-0 end-0 m-3 p-3 rounded-circle shadow" id="pen" title="Nova Nota"
             style="z-index: 1050;">
@@ -98,6 +102,9 @@
         </div>
     </div>
 
+    <div class="dm container p-3" id="pecados">
+        <div id="container-pecados"></div>
+    </div>
     <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
@@ -304,9 +311,7 @@
         });
 
     </script>
-    <script src="src/js/pageLoad.js"></script>
-    <script src="src/js/index.js"></script>
-    <script src="src/js/mostrarDiv.js"></script>
+    
     <!-- Bootstrap JS -->
 </body>
 
