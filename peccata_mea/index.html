@@ -2,167 +2,179 @@
 <html lang="pt-br" data-bs-theme="dark">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peccata Mea</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peccata Mea</title>
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="stylesheet" href="src/css/index.css" />
+    <!-- Estilos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="src/css/index.css" />
 </head>
 
 <body>
-  <div id="container-nav"></div>
-  <div id="container-menu"></div>
+    <div id="container-nav"></div>
+    <div id="container-menu"></div>
 
-  <div class="dm" id="home">
-    <!-- Botão flutuante -->
-    <div class="bg-dark position-fixed bottom-0 end-0 m-3 p-3 rounded-circle shadow" id="pen" title="Nova Nota" style="z-index: 1050;">
-      <i class="bi bi-pen fs-4 text-white"></i>
-    </div>
-
-    <!-- Formulário para nova nota -->
-    <div class="container mt-3 note animate__animated" id="formNota">
-      <div class="card bg-dark text-white">
-        <div class="card-body">
-          <div class="mb-3">
-            <label for="tituloNota" class="form-label">Título</label>
-            <input type="text" id="tituloNota" class="form-control" />
-          </div>
-          <div class="mb-3">
-            <label for="textoNota" class="form-label">Texto</label>
-            <textarea id="textoNota" class="form-control" rows="3"></textarea>
-          </div>
-          <button class="btn btn-primary" onclick="criarNota()">Salvar Nota</button>
+    <div class="dm" id="home">
+        <!-- Botão flutuante -->
+        <div class="bg-dark position-fixed bottom-0 end-0 m-3 p-3 rounded-circle shadow" id="pen" title="Nova Nota"
+            style="z-index: 1050;">
+            <i class="bi bi-pen fs-4 text-white"></i>
         </div>
-      </div>
-    </div>
 
-    <!-- Campo de busca -->
-    <div class="container mt-3">
-      <input type="text" id="pesquisaNota" class="form-control"
-        placeholder="Pesquisar por título, texto ou data..." oninput="filtrarNotas()">
-    </div>
-
-    <!-- Modal de Visualização -->
-    <div class="modal fade" id="notaModal" tabindex="-1" aria-labelledby="notaModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered animate__animated animate__fadeInDown">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="notaModalLabel">Título</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-          </div>
-          <div class="modal-body">
-            <p id="modalTextoNota"></p>
-            <p class="text-muted"><small id="modalDataNota"></small></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="btnApagarNota">Apagar</button>
-          </div>
+        <!-- Formulário para nova nota -->
+        <div class="container mt-3 note animate__animated" id="formNota">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="tituloNota" class="form-label">Título</label>
+                        <input type="text" id="tituloNota" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="textoNota" class="form-label">Texto</label>
+                        <textarea id="textoNota" class="form-control" rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="criarNota()">Salvar Nota</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Modal de Confirmação -->
-    <div class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="confirmarExclusaoLabel"
-      aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered animate__animated animate__fadeInDown">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="confirmarExclusaoLabel">Confirmar Exclusão</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-          </div>
-          <div class="modal-body">
-            Tem certeza que deseja apagar esta nota?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" id="confirmarExclusaoBtn">Apagar</button>
-          </div>
+        <!-- Campo de busca -->
+        <div class="container mt-3">
+            <input type="text" id="pesquisaNota" class="form-control"
+                placeholder="Pesquisar por título, texto ou data..." oninput="filtrarNotas()">
         </div>
-      </div>
+
+        <!-- Modal de Visualização -->
+        <div class="modal fade" id="notaModal" tabindex="-1" aria-labelledby="notaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered animate__animated animate__fadeInDown">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notaModalLabel">Título</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalTextoNota"></p>
+                        <p class="text-muted"><small id="modalDataNota"></small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnApagarNota">Apagar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmação -->
+        <div class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="confirmarExclusaoLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered animate__animated animate__fadeInDown">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmarExclusaoLabel">Confirmar Exclusão</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza que deseja apagar esta nota?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmarExclusaoBtn">Apagar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Container de Notas -->
+        <div class="container mt-5" id="notasContainer"></div>
+        <div id="carregando" class="text-center py-3" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Container de Notas -->
-    <div class="container mt-5" id="notasContainer"></div>
-  </div>
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyCZCcydNVyFeynnVgUVwVOatrve46kgK0I",
+            authDomain: "peccata-mea.firebaseapp.com",
+            projectId: "peccata-mea",
+            storageBucket: "peccata-mea.appspot.com",
+            messagingSenderId: "817588614521",
+            appId: "1:817588614521:web:3a1849d0b73ab66a22eba8",
+            measurementId: "G-XC53ZZFG06"
+        };
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCZCcydNVyFeynnVgUVwVOatrve46kgK0I",
-      authDomain: "peccata-mea.firebaseapp.com",
-      projectId: "peccata-mea",
-      storageBucket: "peccata-mea.appspot.com",
-      messagingSenderId: "817588614521",
-      appId: "1:817588614521:web:3a1849d0b73ab66a22eba8",
-      measurementId: "G-XC53ZZFG06"
-    };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+        const container = document.getElementById('notasContainer');
+        const btnPen = document.getElementById('pen');
+        const formNota = document.getElementById('formNota');
+        let todasAsNotas = [];
+        let idNotaParaExcluir = null;
+        let notasPorPagina = 10;
+        let paginaAtual = 0;
+        let carregandoMais = false;
 
-    const container = document.getElementById('notasContainer');
-    const btnPen = document.getElementById('pen');
-    const formNota = document.getElementById('formNota');
-    let todasAsNotas = [];
-    let idNotaParaExcluir = null;
+        btnPen.addEventListener('click', () => {
+            formNota.classList.toggle('note-active');
+            formNota.classList.toggle('note');
+        });
 
-    btnPen.addEventListener('click', () => {
-      formNota.classList.toggle('note-active');
-      formNota.classList.toggle('note');
-    });
+        window.criarNota = async function () {
+            const titulo = document.getElementById('tituloNota').value.trim();
+            const texto = document.getElementById('textoNota').value.trim();
+            const dataHora = new Date().toLocaleString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
 
-    window.criarNota = async function () {
-      const titulo = document.getElementById('tituloNota').value.trim();
-      const texto = document.getElementById('textoNota').value.trim();
-      const dataHora = new Date().toLocaleString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+            const user = auth.currentUser;
+            const autor = user ? user.email.replace('@gmail.com', '') : 'Anônimo';
 
-      const user = auth.currentUser;
-      const autor = user ? user.email.replace('@gmail.com', '') : 'Anônimo';
+            if (titulo && texto) {
+                const nota = { titulo, texto, data: dataHora, autor };
+                try {
+                    const docRef = await addDoc(collection(db, "notas"), nota);
+                    nota.id = docRef.id;
+                    const card = criarCardNota(nota);
+                    container.prepend(card);
+                    todasAsNotas.unshift(nota);
+                    document.getElementById('tituloNota').value = '';
+                    document.getElementById('textoNota').value = '';
+                    formNota.classList.remove('note-active');
+                    formNota.classList.add('note');
+                } catch (error) {
+                    console.error("Erro ao salvar no Firestore:", error);
+                }
+            }
+        };
 
-      if (titulo && texto) {
-        const nota = { titulo, texto, data: dataHora, autor };
-        try {
-          const docRef = await addDoc(collection(db, "notas"), nota);
-          nota.id = docRef.id;
-          const card = criarCardNota(nota);
-          container.prepend(card);
-          todasAsNotas.unshift(nota);
-          document.getElementById('tituloNota').value = '';
-          document.getElementById('textoNota').value = '';
-          formNota.classList.remove('note-active');
-          formNota.classList.add('note');
-        } catch (error) {
-          console.error("Erro ao salvar no Firestore:", error);
-        }
-      }
-    };
+        function criarCardNota(nota) {
+            const card = document.createElement('div');
+            card.className = 'card bg-dark text-white mb-3 shadow-sm rounded-4 card-nota';
+            card.style.cursor = 'pointer';
+            card.style.transition = 'transform 0.2s ease';
 
-    function criarCardNota(nota) {
-  const card = document.createElement('div');
-  card.className = 'card bg-dark text-white mb-3 shadow-sm rounded-4 card-nota';
-  card.style.cursor = 'pointer';
-  card.style.transition = 'transform 0.2s ease';
+            // Animação suave ao passar o mouse
+            card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.02)');
+            card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
 
-  // Animação suave ao passar o mouse
-  card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.02)');
-  card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
-
-  card.innerHTML = `
+            card.innerHTML = `
     <div class="card-body">
       <h5 class="card-title fw-bold text-primary-emphasis">${nota.titulo}</h5>
       <p class="card-text text-truncate small">${nota.texto}</p>
@@ -173,89 +185,128 @@
     </div>
   `;
 
-  card.addEventListener('click', () => {
-    document.getElementById('notaModalLabel').textContent = nota.titulo;
-    document.getElementById('modalTextoNota').textContent = nota.texto;
-    document.getElementById('modalDataNota').textContent = `Dia cometido: ${nota.data}`;
-    document.getElementById('btnApagarNota').setAttribute('data-id', nota.id);
-    new bootstrap.Modal(document.getElementById('notaModal')).show();
-  });
+            card.addEventListener('click', () => {
+                document.getElementById('notaModalLabel').textContent = nota.titulo;
+                document.getElementById('modalTextoNota').textContent = nota.texto;
+                document.getElementById('modalDataNota').textContent = `Dia cometido: ${nota.data}`;
+                document.getElementById('btnApagarNota').setAttribute('data-id', nota.id);
+                new bootstrap.Modal(document.getElementById('notaModal')).show();
+            });
 
-  return card;
-}
-
-
-    document.getElementById('btnApagarNota').addEventListener('click', function () {
-      idNotaParaExcluir = this.getAttribute('data-id');
-      new bootstrap.Modal(document.getElementById('confirmarExclusaoModal')).show();
-    });
-
-    document.getElementById('confirmarExclusaoBtn').addEventListener('click', async function () {
-      if (idNotaParaExcluir) {
-        try {
-          await deleteDoc(doc(db, "notas", idNotaParaExcluir));
-          mostrarNotasSalvas();
-          bootstrap.Modal.getInstance(document.getElementById('notaModal')).hide();
-          bootstrap.Modal.getInstance(document.getElementById('confirmarExclusaoModal')).hide();
-        } catch (error) {
-          console.error("Erro ao apagar nota:", error);
+            return card;
         }
-      }
-    });
 
-    window.mostrarNotasSalvas = async function () {
-      container.innerHTML = '';
-      todasAsNotas = [];
-      try {
-        const querySnapshot = await getDocs(collection(db, "notas"));
-        querySnapshot.forEach((docSnap) => {
-          const nota = docSnap.data();
-          nota.id = docSnap.id;
-          todasAsNotas.push(nota);
+
+        document.getElementById('btnApagarNota').addEventListener('click', function () {
+            idNotaParaExcluir = this.getAttribute('data-id');
+            new bootstrap.Modal(document.getElementById('confirmarExclusaoModal')).show();
         });
-        renderizarNotas(todasAsNotas);
-      } catch (error) {
-        console.error("Erro ao buscar notas:", error);
-      }
-    }
 
-    function renderizarNotas(lista) {
-      container.innerHTML = '';
-      lista.forEach(nota => {
-        const card = criarCardNota(nota);
-        container.appendChild(card);
-      });
-    }
+        document.getElementById('confirmarExclusaoBtn').addEventListener('click', async function () {
+            if (idNotaParaExcluir) {
+                try {
+                    await deleteDoc(doc(db, "notas", idNotaParaExcluir));
+                    mostrarNotasSalvas();
+                    bootstrap.Modal.getInstance(document.getElementById('notaModal')).hide();
+                    bootstrap.Modal.getInstance(document.getElementById('confirmarExclusaoModal')).hide();
+                } catch (error) {
+                    console.error("Erro ao apagar nota:", error);
+                }
+            }
+        });
 
-    window.filtrarNotas = function () {
-      const termo = document.getElementById('pesquisaNota').value.toLowerCase().trim();
-      const filtradas = todasAsNotas.filter(nota =>
-        nota.titulo.toLowerCase().includes(termo) ||
-        nota.texto.toLowerCase().includes(termo) ||
-        nota.data.toLowerCase().includes(termo)
-      );
-      renderizarNotas(filtradas);
-    }
+        async function mostrarNotasSalvas() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "notas"));
+                todasAsNotas = [];
+                querySnapshot.forEach((docSnap) => {
+                    const nota = docSnap.data();
+                    nota.id = docSnap.id;
+                    todasAsNotas.push(nota);
+                });
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user || !localStorage.getItem("usuarioLogado")) {
-        window.location.href = "../index.html";
-      } else {
-        mostrarNotasSalvas();
-      }
-    });
+                // ordena por data mais recente
+                todasAsNotas.sort((a, b) => new Date(b.data) - new Date(a.data));
 
-    window.logout = function () {
-      signOut(auth).then(() => {
-        localStorage.removeItem("usuarioLogado");
-        window.location.href = "../index.html";
-      });
-    };
-  </script>
+
+                // renderiza os primeiros 10
+                container.innerHTML = '';
+                paginaAtual = 0;
+                carregarMaisNotas();
+            } catch (error) {
+                console.error("Erro ao buscar notas:", error);
+            }
+        }
+        function carregarMaisNotas() {
+            if (carregandoMais) return;
+
+            carregandoMais = true;
+            document.getElementById("carregando").style.display = "block";
+
+            setTimeout(() => {
+                const inicio = paginaAtual * notasPorPagina;
+                const fim = inicio + notasPorPagina;
+                const notasParaExibir = todasAsNotas.slice(inicio, fim);
+
+                notasParaExibir.forEach(nota => {
+                    const card = criarCardNota(nota);
+                    container.appendChild(card);
+                });
+
+                paginaAtual++;
+                carregandoMais = false;
+                document.getElementById("carregando").style.display = "none";
+
+                // Se não houver mais notas, esconde o spinner
+                if (fim >= todasAsNotas.length) {
+                    document.getElementById("carregando").style.display = "none";
+                }
+            }, 800); // tempo só pra mostrar o loading
+        }
+
+        function renderizarNotas(lista) {
+            container.innerHTML = '';
+            lista.forEach(nota => {
+                const card = criarCardNota(nota);
+                container.appendChild(card);
+            });
+        }
+
+        window.filtrarNotas = function () {
+            const termo = document.getElementById('pesquisaNota').value.toLowerCase().trim();
+            const filtradas = todasAsNotas.filter(nota =>
+                nota.titulo.toLowerCase().includes(termo) ||
+                nota.texto.toLowerCase().includes(termo) ||
+                nota.data.toLowerCase().includes(termo)
+            );
+            renderizarNotas(filtradas);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user || !localStorage.getItem("usuarioLogado")) {
+                window.location.href = "../index.html";
+            } else {
+                mostrarNotasSalvas();
+            }
+        });
+
+        window.logout = function () {
+            signOut(auth).then(() => {
+                localStorage.removeItem("usuarioLogado");
+                window.location.href = "../index.html";
+            });
+        };
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+                carregarMaisNotas();
+            }
+        });
+
+    </script>
     <script src="src/js/pageLoad.js"></script>
     <script src="src/js/index.js"></script>
     <script src="src/js/mostrarDiv.js"></script>
-  <!-- Bootstrap JS -->
+    <!-- Bootstrap JS -->
 </body>
 
 </html>
