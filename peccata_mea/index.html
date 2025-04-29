@@ -96,6 +96,7 @@
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
@@ -147,85 +148,81 @@
 };
 
 
-        window.criarNota = async function () {
-            const titulo = document.getElementById('tituloNota').value.trim();
-            const texto = document.getElementById('textoNota').value.trim();
-            const agora = new Date();
-            const dataFormatada = agora.toLocaleString('pt-BR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            const dataISO = agora.toISOString();
+window.criarNota = async function () {
+    const titulo = document.getElementById('tituloNota').value.trim();
+    const texto = document.getElementById('textoNota').value.trim();
+    const agora = new Date();
+    const dataFormatada = agora.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    const dataISO = agora.toISOString();
 
-    
-            const user = auth.currentUser;
-            const autor = user ? user.email.replace('@gmail.com', '') : 'Anônimo';
-    
-            if (titulo && texto) {
-                const nota = { titulo, texto, data: dataFormatada, dataISO, autor };
-                try {
-                    const docRef = await addDoc(collection(db, "notas"), nota);
-                    nota.id = docRef.id;
-                    const card = criarCardNota(nota);
-                    container.appendChild(card); // append no final, pois agora ordenamos do mais antigo para o mais novo
-                    todasAsNotas.push(nota); // adiciona no fim
-                    document.getElementById('tituloNota').value = '';
-                    document.getElementById('textoNota').value = '';
-                    formNota.classList.remove('note-active');
-                    formNota.classList.add('note');
-                } catch (error) {
-                    console.error("Erro ao salvar no Firestore:", error);
-                }
-            }
-        };
+    const user = auth.currentUser;
+    const autor = user ? user.email.replace('@gmail.com', '') : 'Anônimo';
+
+    if (titulo && texto) {
+        const nota = { titulo, texto, data: dataFormatada, dataISO, autor };
+        try {
+            await addDoc(collection(db, "notas"), nota);
+            
+            // Limpa o formulário
+            document.getElementById('tituloNota').value = '';
+            document.getElementById('textoNota').value = '';
+
+            // Fecha o formulário (opcional)
+            formNota.classList.add('hidden');
+
+            // Recarrega as notas do Firestore
+            mostrarNotasSalvas();
+        } catch (error) {
+            console.error("Erro ao salvar no Firestore:", error);
+        }
+    }
+};
+
     
         function criarCardNota(nota) {
-    const card = document.createElement('div');
-    card.className = 'card border-0 shadow-lg rounded-4 mb-4 card-nota';
-    card.style.cursor = 'pointer';
-    card.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-    card.style.background = 'linear-gradient(145deg, #212529, #2c2f36)';
-    card.style.color = '#f8f9fa';
+    const linha = document.createElement('div');
+    linha.className = 'border-b border-gray-700 py-3 px-2 hover:bg-gray-800 transition';
+    linha.style.cursor = 'pointer';
 
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'scale(1.03)';
-        card.style.boxShadow = '0 8px 16px rgba(0,0,0,0.6)';
-    });
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'scale(1)';
-        card.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
-    });
-
-    card.innerHTML = `
-        <div class="card-body d-flex flex-column justify-content-between" style="min-height: 180px;">
-            <h5 class="card-title mb-2 fw-semibold text-warning-emphasis">${nota.titulo}</h5>
-            <p class="card-text small flex-grow-1 text-light overflow-hidden" style="max-height: 60px; text-overflow: ellipsis;">${nota.texto}</p>
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <small class="text-muted"><i class="bi bi-calendar3"></i> ${nota.data}</small>
-                <small class="text-muted"><i class="bi bi-person-circle"></i> ${nota.autor}</small>
-            </div>
+    linha.innerHTML = `
+        <div class="text-sm text-white font-semibold mb-1">
+            @${nota.autor || "anônimo"} <span class="text-gray-500 text-xs ml-1">${nota.data.split(',')[0]}</span>
+        </div>
+        <div class="text-gray-300 text-sm whitespace-pre-line">
+            ${nota.texto}
         </div>
     `;
 
-    card.addEventListener('click', () => {
+    linha.addEventListener('click', () => {
         document.getElementById('notaModalLabel').textContent = nota.titulo;
         document.getElementById('modalTextoNota').textContent = nota.texto;
         document.getElementById('modalDataNota').textContent = `Dia cometido: ${nota.data}`;
         document.getElementById('btnApagarNota').setAttribute('data-id', nota.id);
-        new bootstrap.Modal(document.getElementById('notaModal')).show();
+        document.getElementById('notaModal').classList.remove('hidden');
     });
 
-    return card;
+    return linha;
 }
+
+window.fecharModal = function () {
+  document.getElementById('notaModal').classList.add('hidden');
+};
+window.fecharModalConfirmar = function () {
+  document.getElementById('confirmarExclusaoModal').classList.add('hidden');
+};
+
 
     
         document.getElementById('btnApagarNota').addEventListener('click', function () {
             idNotaParaExcluir = this.getAttribute('data-id');
-            new bootstrap.Modal(document.getElementById('confirmarExclusaoModal')).show();
+            document.getElementById('confirmarExclusaoModal').classList.remove('hidden');
         });
     
         document.getElementById('confirmarExclusaoBtn').addEventListener('click', async function () {
@@ -233,8 +230,10 @@
                 try {
                     await deleteDoc(doc(db, "notas", idNotaParaExcluir));
                     mostrarNotasSalvas();
-                    bootstrap.Modal.getInstance(document.getElementById('notaModal')).hide();
-                    bootstrap.Modal.getInstance(document.getElementById('confirmarExclusaoModal')).hide();
+                    document.getElementById('notaModal').classList.add('hidden');
+document.getElementById('confirmarExclusaoModal').classList.add('hidden');
+
+
                 } catch (error) {
                     console.error("Erro ao apagar nota:", error);
                 }
