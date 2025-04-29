@@ -11,99 +11,89 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="src/css/index.css" />
     <script src="src/js/pageLoad.js" defer></script>
     <script src="src/js/index.js" defer></script>
     <script src="src/js/mostrarDiv.js" defer></script>
+
 </head>
 
-<body>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
     <div id="container-nav"></div>
     <div id="container-menu"></div>
-
+  
     <!-- Home -->
-    <div class="dm" id="home">
-        <!-- Botão flutuante -->
+    <div class="flex-1" id="home">
+  
         <div class="bg-dark position-fixed bottom-0 end-0 m-3 p-3 rounded-circle shadow" id="pen" title="Nova Nota"
-            style="z-index: 1050;">
-            <i class="bi bi-pen fs-4 text-white"></i>
-        </div>
-
-        <!-- Formulário para nova nota -->
-        <div class="container mt-3 note animate__animated" id="formNota">
-            <div class="card bg-dark text-white">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="tituloNota" class="form-label">Título</label>
-                        <input type="text" id="tituloNota" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="textoNota" class="form-label">Texto</label>
-                        <textarea id="textoNota" class="form-control" rows="3"></textarea>
-                    </div>
-                    <button class="btn btn-primary" onclick="criarNota()">Salvar Nota</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Campo de busca -->
-        <div class="container mt-3">
-            <input type="text" id="pesquisaNota" class="form-control"
-                placeholder="Pesquisar por título, texto ou data..." oninput="filtrarNotas()">
-        </div>
-
-        <!-- Modal de Visualização -->
-        <div class="modal fade" id="notaModal" tabindex="-1" aria-labelledby="notaModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered animate__animated animate__fadeInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="notaModalLabel">Título</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="modalTextoNota"></p>
-                        <p class="text-muted"><small id="modalDataNota"></small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="btnApagarNota">Apagar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal de Confirmação -->
-        <div class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="confirmarExclusaoLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered animate__animated animate__fadeInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmarExclusaoLabel">Confirmar Exclusão</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
-                        Tem certeza que deseja apagar esta nota?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" id="confirmarExclusaoBtn">Apagar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Container de Notas -->
-        <div class="container mt-5" id="notasContainer"></div>
-        <div id="carregando" class="text-center py-3" style="display: none;">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Carregando...</span>
-            </div>
-        </div>
+        style="z-index: 1050;">
+        <i class="bi bi-pen fs-4 text-white"></i>
     </div>
+  
+  
+      <!-- Formulário de Nova Nota -->
+      <div id="formNota" class="max-w-lg mx-auto mt-6 p-6 bg-gray-800 shadow-lg hidden">
+        <div class="space-y-4">
+          <div>
+            <label for="tituloNota" class="block text-sm font-medium text-gray-300">Título</label>
+            <input id="tituloNota" type="text" class="mt-1 w-full rounded-md bg-gray-700 border-gray-600 text-white focus:border-indigo-500 focus:ring focus:ring-indigo-500/50" />
+          </div>
+          <div>
+            <label for="textoNota" class="block text-sm font-medium text-gray-300">Texto</label>
+            <textarea id="textoNota" rows="4" class="mt-1 w-full rounded-md bg-gray-700 border-gray-600 text-white focus:border-indigo-500 focus:ring focus:ring-indigo-500/50"></textarea>
+          </div>
+          <button onclick="criarNota()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md font-semibold">Salvar Nota</button>
+        </div>
+      </div>
+  
+      <!-- Campo de Busca -->
+      <div class="max-w-3xl mx-auto mt-8 px-4 space-y-4">
+        <input id="pesquisaNota" type="text" placeholder="Pesquisar por título, texto ou data..." oninput="filtrarNotas()" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        
+        <select id="filtroAutor" onchange="filtrarPorAutor()" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="todos">Todos os autores</option>
+          <option value="jao">Jao</option>
+          <option value="emili">Emili</option>
+        </select>
+      </div>
+      <div id="contadorPecados" class="text-center fw-bold my-4 fs-5 text-danger"></div>
 
-    <div class="dm oculto container p-3" id="pecados">
-        <div id="container-pecados"></div>
+      <!-- Container de Notas -->
+      <div id="notasContainer" class="max-w-5xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4"></div>
+  
+      <!-- Loader -->
+      <div id="carregando" class="hidden py-6 text-center">
+        <div class="w-12 h-12 mx-auto border-4 border-indigo-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+      </div>
+  
+    </div>
+  
+    <!-- Pecados -->
+    <div id="pecados" class="hidden container mx-auto p-4">
+      <div id="container-pecados"></div>
+    </div>
+  
+    <!-- Modais -->
+    <div id="notaModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-60 z-50">
+      <div class="bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full text-center">
+        <h2 id="notaModalLabel" class="text-xl font-bold mb-4"></h2>
+        <p id="modalTextoNota" class="mb-4 text-gray-300"></p>
+        <p id="modalDataNota" class="text-xs text-gray-400 mb-6"></p>
+        <div class="flex justify-between space-x-4">
+          <button id="btnApagarNota" class="w-1/2 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg">Apagar</button>
+          <button onclick="fecharModal()" class="w-1/2 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg">Fechar</button>
+        </div>
+      </div>
+    </div>
+  
+    <div id="confirmarExclusaoModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-60 z-50">
+      <div class="bg-gray-800 p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+        <h2 class="text-lg font-bold mb-4">Confirmar Exclusão</h2>
+        <p class="text-gray-400 mb-6">Tem certeza que deseja apagar esta nota?</p>
+        <div class="flex justify-between space-x-4">
+          <button id="confirmarExclusaoBtn" class="w-1/2 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg">Apagar</button>
+          <button onclick="fecharModalConfirmar()" class="w-1/2 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg">Cancelar</button>
+        </div>
+      </div>
     </div>
     <!-- Firebase -->
     <script type="module">
@@ -135,10 +125,27 @@
         let carregandoMais = false;
     
         btnPen.addEventListener('click', () => {
-            formNota.classList.toggle('note-active');
-            formNota.classList.toggle('note');
-        });
-    
+    formNota.classList.toggle('hidden');
+});
+
+
+        window.filtrarPorAutor = function () {
+    const seletor = document.getElementById('filtroAutor');
+    const autorSelecionado = seletor.value;
+
+    let notasFiltradas = todasAsNotas;
+
+    if (autorSelecionado !== 'todos') {
+        notasFiltradas = todasAsNotas.filter(nota =>
+            nota.autor && nota.autor.toLowerCase().includes(autorSelecionado.toLowerCase())
+        );
+    }
+
+    renderizarNotas(notasFiltradas);
+    atualizarContadorPecados(autorSelecionado, notasFiltradas.length);  // Atualiza contador com base no autor
+};
+
+
         window.criarNota = async function () {
             const titulo = document.getElementById('tituloNota').value.trim();
             const texto = document.getElementById('textoNota').value.trim();
@@ -176,35 +183,44 @@
         };
     
         function criarCardNota(nota) {
-            const card = document.createElement('div');
-            card.className = 'card bg-dark text-white mb-3 shadow-sm rounded-4 card-nota';
-            card.style.cursor = 'pointer';
-            card.style.transition = 'transform 0.2s ease';
-    
-            card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.02)');
-            card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
-    
-            card.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title fw-bold text-primary-emphasis">${nota.titulo}</h5>
-                    <p class="card-text text-truncate small">${nota.texto}</p>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <small class="text-muted">📅 ${nota.data}</small>
-                        <small class="text-muted">✍️ ${nota.autor}</small>
-                    </div>
-                </div>
-            `;
-    
-            card.addEventListener('click', () => {
-                document.getElementById('notaModalLabel').textContent = nota.titulo;
-                document.getElementById('modalTextoNota').textContent = nota.texto;
-                document.getElementById('modalDataNota').textContent = `Dia cometido: ${nota.data}`;
-                document.getElementById('btnApagarNota').setAttribute('data-id', nota.id);
-                new bootstrap.Modal(document.getElementById('notaModal')).show();
-            });
-    
-            return card;
-        }
+    const card = document.createElement('div');
+    card.className = 'card border-0 shadow-lg rounded-4 mb-4 card-nota';
+    card.style.cursor = 'pointer';
+    card.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+    card.style.background = 'linear-gradient(145deg, #212529, #2c2f36)';
+    card.style.color = '#f8f9fa';
+
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(1.03)';
+        card.style.boxShadow = '0 8px 16px rgba(0,0,0,0.6)';
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+    });
+
+    card.innerHTML = `
+        <div class="card-body d-flex flex-column justify-content-between" style="min-height: 180px;">
+            <h5 class="card-title mb-2 fw-semibold text-warning-emphasis">${nota.titulo}</h5>
+            <p class="card-text small flex-grow-1 text-light overflow-hidden" style="max-height: 60px; text-overflow: ellipsis;">${nota.texto}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <small class="text-muted"><i class="bi bi-calendar3"></i> ${nota.data}</small>
+                <small class="text-muted"><i class="bi bi-person-circle"></i> ${nota.autor}</small>
+            </div>
+        </div>
+    `;
+
+    card.addEventListener('click', () => {
+        document.getElementById('notaModalLabel').textContent = nota.titulo;
+        document.getElementById('modalTextoNota').textContent = nota.texto;
+        document.getElementById('modalDataNota').textContent = `Dia cometido: ${nota.data}`;
+        document.getElementById('btnApagarNota').setAttribute('data-id', nota.id);
+        new bootstrap.Modal(document.getElementById('notaModal')).show();
+    });
+
+    return card;
+}
+
     
         document.getElementById('btnApagarNota').addEventListener('click', function () {
             idNotaParaExcluir = this.getAttribute('data-id');
@@ -225,36 +241,44 @@
         });
     
         async function mostrarNotasSalvas() {
-            try {
-                const querySnapshot = await getDocs(collection(db, "notas"));
-                todasAsNotas = [];
-                querySnapshot.forEach((docSnap) => {
-                    const nota = docSnap.data();
-                    nota.id = docSnap.id;
-                    todasAsNotas.push(nota);
-                });
+    try {
+        const querySnapshot = await getDocs(collection(db, "notas"));
+        todasAsNotas = [];
+        querySnapshot.forEach((docSnap) => {
+            const nota = docSnap.data();
+            nota.id = docSnap.id;
+            todasAsNotas.push(nota);
+        });
 
-                // ordena do mais antigo para o mais novo — mesmo sem dataISO
-                // ordena do mais recente para o mais antigo
-                todasAsNotas.sort((a, b) => {
-                    const dataA = a.dataISO
-                        ? new Date(a.dataISO)
-                        : new Date(a.data.split(',')[0].split('/').reverse().join('-') + 'T' + a.data.split(',')[1].trim());
-                    const dataB = b.dataISO
-                        ? new Date(b.dataISO)
-                        : new Date(b.data.split(',')[0].split('/').reverse().join('-') + 'T' + b.data.split(',')[1].trim());
-                    return dataB - dataA; // <- invertido aqui
-                });
+        todasAsNotas.sort((a, b) => {
+            const dataA = a.dataISO
+                ? new Date(a.dataISO)
+                : new Date(a.data.split(',')[0].split('/').reverse().join('-') + 'T' + a.data.split(',')[1].trim());
+            const dataB = b.dataISO
+                ? new Date(b.dataISO)
+                : new Date(b.data.split(',')[0].split('/').reverse().join('-') + 'T' + b.data.split(',')[1].trim());
+            return dataB - dataA;
+        });
+
+        container.innerHTML = '';
+        paginaAtual = 0;
+        carregarMaisNotas();
+        atualizarContadorPecados(); // <<=== Atualiza aqui
+    } catch (error) {
+        console.error("Erro ao buscar notas:", error);
+    }
+}
+
+function atualizarContadorPecados(autor = "todos", quantidade = 0) {
+    const contador = document.getElementById('contadorPecados');
+    if (autor === "todos") {
+        contador.textContent = `Total de Pecados: ${todasAsNotas.length}`;
+    } else {
+        contador.textContent = `Total de Pecados de ${autor}: ${quantidade}`;
+    }
+}
 
 
-                container.innerHTML = '';
-                paginaAtual = 0;
-                carregarMaisNotas();
-            } catch (error) {
-                console.error("Erro ao buscar notas:", error);
-            }
-        }
-    
         function carregarMaisNotas() {
             if (carregandoMais) return;
     
@@ -282,12 +306,16 @@
         }
     
         function renderizarNotas(lista) {
-            container.innerHTML = '';
-            lista.forEach(nota => {
-                const card = criarCardNota(nota);
-                container.appendChild(card);
-            });
-        }
+    container.innerHTML = '';
+    lista.forEach(nota => {
+        const card = criarCardNota(nota);
+        container.appendChild(card);
+    });
+    // Atualizar contador quando as notas são renderizadas
+    atualizarContadorPecados(); 
+}
+
+
     
         window.filtrarNotas = function () {
             const termo = document.getElementById('pesquisaNota').value.toLowerCase().trim();

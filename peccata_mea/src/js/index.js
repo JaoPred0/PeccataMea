@@ -2,6 +2,10 @@ const scriptBootstrap = document.createElement('script');
 scriptBootstrap.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js';
 document.head.appendChild(scriptBootstrap);
 
+const scriptT = document.createElement('script');
+scriptT.src = 'https://cdn.tailwindcss.com';
+document.head.appendChild(scriptT);
+
 // 🚀 AOS (Animate On Scroll) - Efeitos de animação ao rolar a página
 const scriptAOS = document.createElement('script');
 scriptAOS.src = 'https://unpkg.com/aos@next/dist/aos.js';

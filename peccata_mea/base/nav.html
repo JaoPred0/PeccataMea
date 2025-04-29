@@ -1,12 +1,19 @@
-<nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample">
-            <i class="bi bi-list"></i>
-        </button>
-        <a class="navbar-brand fw-bold"><span class="text-danger">Peccata</span> Mea</a>
-        <button class="btn btn-danger" onclick="logout()">
-            <i class="bi bi-box-arrow-right"></i>
-        </button>
-    </div>
-</nav>
+<nav class="bg-gray-900 shadow-lg px-6 py-4 flex items-center justify-between text-white">
+    <!-- Botão de menu -->
+    <!-- <button class="text-white text-2xl focus:outline-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+    aria-controls="offcanvasExample">
+      <i class="bi bi-list"></i>
+    </button> -->
+  
+    <!-- Logo -->
+    <a class="text-white font-bold text-2xl flex items-center space-x-2">
+      <span class="text-yellow-400">Peccata</span>
+      <span class="text-white">Mea</span>
+    </a>
+  
+    <!-- Botão de logout -->
+    <button class="bg-red-600 text-white rounded p-2 hover:bg-red-700 transition-all focus:outline-none" onclick="logout()">
+      <i class="bi bi-box-arrow-right text-xl"></i>
+    </button>
+  </nav>
+  

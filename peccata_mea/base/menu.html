@@ -1,12 +1,16 @@
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<div class="offcanvas offcanvas-start bg-gray-800 w-64 h-full p-4 shadow-xl" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-white text-lg font-semibold" id="offcanvasExampleLabel">Menu</h5>
+    <button type="button" class="text-white text-xl hover:text-gray-400" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="bi bi-x"></i>
+    </button>
   </div>
-  <div class="offcanvas-body">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" onclick="mostrarDiv('home')" data-bs-dismiss="offcanvas">Home</li>
-      <li class="list-group-item" onclick="mostrarDiv('pecados')" data-bs-dismiss="offcanvas">Pecados</li>
+
+  <div class="space-y-4">
+    <ul class="text-white">
+      <li class="cursor-pointer hover:text-blue-400 mb-3" onclick="mostrarDiv('home')" data-bs-dismiss="offcanvas">Home</li>
+      <hr>
+      <li class="cursor-pointer hover:text-blue-400 mt-3" onclick="mostrarDiv('pecados')" data-bs-dismiss="offcanvas">Pecados</li>
     </ul>
   </div>
 </div>
